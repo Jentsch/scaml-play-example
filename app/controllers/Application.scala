@@ -1,11 +1,13 @@
 package controllers
 
-import play.api._
-import play.api.mvc._
-import views._
-import play.api.http.Writeable
+import java.util.Currency
+
+import assets.Item
 import org.scex.Builder
 import org.scex.generators.{HTML => HtmlGenrator}
+import play.api.http.Writeable
+import play.api.mvc._
+import views._
 
 object Application extends Controller {
 
@@ -18,7 +20,12 @@ object Application extends Controller {
   }
   
   def show(id: Int) = Action {
-    Ok(new Show(id))
+    Item.get(id).map {
+      item =>
+        Ok(new Show(item))
+    }.getOrElse {
+      NotFound("Not found")
+    }
   }
   
   def update(id: Int) = Action {

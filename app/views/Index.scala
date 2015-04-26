@@ -10,5 +10,5 @@ object Index extends Web {
   
   p"Create a new ${Link > Application.add().url} offer."
 
-  p"Show first item ${Link > Application.show(0).url} ever."
+  p"Show first item ${Link > Application.show(1).url} ever."
 }
