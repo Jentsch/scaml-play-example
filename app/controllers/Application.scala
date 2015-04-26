@@ -5,8 +5,7 @@ import play.api.mvc._
 import views._
 import play.api.http.Writeable
 import org.scex.Builder
-import org.scex.generators.HTML
-import play.api.http.ContentTypeOf
+import org.scex.generators.{HTML => HtmlGenrator}
 
 object Application extends Controller {
 
@@ -15,11 +14,11 @@ object Application extends Controller {
   }
 
   def add = Action {
-    NotImplemented
+    Ok(Add)
   }
   
   def show(id: Int) = Action {
-    NotImplemented
+    Ok(new Show(id))
   }
   
   def update(id: Int) = Action {
@@ -33,8 +32,7 @@ object Application extends Controller {
   def search = Action {
     NotImplemented
   }
-  
-  
-  implicit val ScexWriteable = Writeable[Builder]({(doc: Builder) => org.scex.generators.HTML(doc).toString.getBytes}, Some("text/html"))
+
+  implicit val ScexWriteable = Writeable[Builder]({(doc: Builder) => HtmlGenrator(doc).toString().getBytes}, Some("text/html"))
 
 }
