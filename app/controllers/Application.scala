@@ -3,8 +3,8 @@ package controllers
 import java.util.Currency
 
 import assets.Item
-import org.scex.Builder
-import org.scex.generators.{HTML => HtmlGenrator}
+import org.scaml.Builder
+import org.scaml.generators.{HTML => HtmlGenrator}
 import play.api.http.Writeable
 import play.api.mvc._
 import views._
@@ -40,6 +40,7 @@ object Application extends Controller {
     NotImplemented
   }
 
-  implicit val ScexWriteable = Writeable[Builder]({(doc: Builder) => HtmlGenrator(doc).toString().getBytes}, Some("text/html"))
+  implicit val ScamlWriteable = Writeable[Builder]({(doc: Builder) => HtmlGenrator(doc).toString().getBytes}, Some("text/html"))
 
 }
+

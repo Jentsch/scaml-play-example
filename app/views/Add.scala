@@ -1,6 +1,6 @@
 package views
 
-import org.scex.templates.Web
+import org.scaml.templates.Web
 
 object Add extends Web {
 
@@ -12,3 +12,4 @@ object Add extends Web {
     p"Item price"
   }
 }
+

@@ -2,8 +2,8 @@ package views
 
 import assets.Item
 import controllers.routes._
-import org.scex.attributes.Link
-import org.scex.templates.Web
+import org.scaml.attributes.Link
+import org.scaml.templates.Web
 
 class Show(item: Item) extends Web {
 

@@ -1,11 +1,11 @@
-name := """play-scala"""
+name := "scaml-play-intro"
 
 version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-scalaVersion := "2.11.1"
+scalaVersion := "2.11.6"
 
-libraryDependencies += "org.scex" %% "scex" % "0.2.1.30"
+libraryDependencies += "org.scaml" %% "scaml" % "0.2.1.9"
 
-resolvers += "Scex Bintray Repo" at "https://bintray.com/artifact/download/jentsch/maven/"
+resolvers += "ScaML Bintray Repo" at "https://bintray.com/artifact/download/jentsch/maven/"

@@ -1,7 +1,7 @@
 package views
 
-import org.scex.templates.Web
-import org.scex.attributes._
+import org.scaml.templates.Web
+import org.scaml.attributes._
 import controllers.routes.Application
 
 object Index extends Web {
@@ -12,3 +12,4 @@ object Index extends Web {
 
   p"Show first item ${Link > Application.show(1).url} ever."
 }
+
