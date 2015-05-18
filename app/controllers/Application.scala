@@ -2,7 +2,7 @@ package controllers
 
 import java.util.Currency
 
-import assets.Item
+import assets.Task
 import org.scaml.Builder
 import org.scaml.generators.{HTML => HtmlGenrator}
 import play.api.http.Writeable
@@ -20,11 +20,10 @@ object Application extends Controller {
   }
   
   def show(id: Int) = Action {
-    Item.get(id).map {
-      item =>
-        Ok(new Show(item))
+    Task.get(id).map { task =>
+      Ok(new Show(task))
     }.getOrElse {
-      NotFound("Not found")
+      NotFound("No such task: " + id)
     }
   }
   

@@ -8,8 +8,11 @@ object Index extends Web {
   
   headline"Mainpage"
   
-  p"Create a new ${Link > Application.add().url} offer."
+  p"Create a new ${Link > Application.add().url} tas.k"
 
-  p"Show first item ${Link > Application.show(1).url} ever."
+  section"Unresolved Tasks"
+
+  assets.Task.filter(! _.isResolved).foreach { task =>
+    p"${Link > Application.show(task.id).url}{${task.name}} (${task.duration.minutes.toString})"
+  }
 }
-

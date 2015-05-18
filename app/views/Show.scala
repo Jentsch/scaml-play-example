@@ -1,15 +1,17 @@
 package views
 
-import assets.Item
-import controllers.routes._
-import org.scaml.attributes.Link
+import assets.Task
 import org.scaml.templates.Web
 
-class Show(item: Item) extends Web {
+class Show(task: Task) extends Web {
 
-  headline"${item.name}"
+  form {
 
-  p"Buy if for only ${item.price.toString()}"
-
-  p"Back to the ${Link > Application.index().toString()}{Main page}"
+    headline"${task.name}"
+  
+    if (task.isOpen)
+      p"Is Open"
+    else
+      p"Done"
+  }
 }
