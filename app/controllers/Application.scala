@@ -1,7 +1,5 @@
 package controllers
 
-import java.util.Currency
-
 import assets.Task
 import org.scaml.{Builder, HTML => HtmlGenrator}
 import play.api.http.Writeable
@@ -10,7 +8,8 @@ import views._
 
 object Application extends Controller {
 
-  implicit val ScamlWriteable = Writeable[Builder]({ (doc: Builder) => HtmlGenrator(doc).toString().getBytes }, Some("text/html"))
+  implicit val ScamlWriteable =
+    Writeable[Builder]({ (doc: Builder) => HtmlGenrator(doc).toString().getBytes }, Some("text/html"))
 
   def index = Action {
     Ok(Index)
@@ -24,7 +23,7 @@ object Application extends Controller {
     Task.get(id).map { task =>
       Ok(new Show(task))
     }.getOrElse {
-      NotFound("No such task: " + id)
+      NotFound("No with ID " + id)
     }
   }
 
