@@ -2,18 +2,19 @@ package views
 
 import controllers.routes._
 import org.scaml.attributes.Link
-import org.scaml.templates.Web
 
-object Add extends Web {
+object Add extends Template {
+  p"""
+    $default {
+      $title{Create new task}
+      ${postForm(Application.add().url)} {
+        $p{Name ${textInput("name")}}
+        $p{Expected duration ${textInput(name = "duration")} in seconds}
 
-  headline"Create new item"
-
-  form"""
-    $p{Item name $input(name='name)}
-
-    $p{Item price $input(name='price)}
+        $p $button Submit
+      }
+      $p ${Link > Application.index().url}{Cancel and go back to main page}
+    }
   """
-  
-  p"${Link > Application.index().toString()}{Cancel and go back to main page}"
 }
 

@@ -1,10 +1,12 @@
 package controllers
 
-import assets.Task
+import assets.{Duration, Task}
 import org.scaml.{Builder, HTML => HtmlGenrator}
 import play.api.http.Writeable
 import play.api.mvc._
 import views._
+
+import scala.util.Try
 
 object Application extends Controller {
 
@@ -17,6 +19,23 @@ object Application extends Controller {
 
   def add = Action {
     Ok(Add)
+  }
+
+  def create = Action { req =>
+    val result = for (
+      request <- req.body.asFormUrlEncoded;
+      name <- request.getOrElse("name", Nil).headOption;
+      durationString <- request.getOrElse("duration", Nil).headOption;
+      duration <- Try(Duration(durationString.toInt)).toOption
+    ) yield Task(name, duration)
+
+    result match {
+      case Some(task) =>
+        val id = Task += task
+        Redirect(routes.Application.show(id))
+      case None =>
+        Ok(Add)
+    }
   }
 
   def show(id: Int) = Action {
@@ -37,6 +56,10 @@ object Application extends Controller {
 
   def search = Action {
     NotImplemented
+  }
+
+  def resolved() = Action {
+    Ok(new TaskList("Resolved tasks", Task.filter(_.isResolved).to[List]))
   }
 
 }

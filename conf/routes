@@ -5,7 +5,8 @@
 # Home page
 GET     /                           controllers.Application.index
 
-GET		/add						controllers.Application.add	
+GET 	/add						controllers.Application.add
+POST    /add                        controllers.Application.create
 GET		/*id						controllers.Application.show(id: Int)
 POST	/*id						controllers.Application.update(id: Int)
 POST	/*id/remove					controllers.Application.remove(id: Int)

@@ -1,14 +1,18 @@
 package views
 
 import assets.Task
-import org.scaml.templates.Web
+import controllers.routes._
+import org.scaml.attributes.Link
 
-class Show(task: Task) extends Web {
+class Show(task: Task) extends Template {
 
-  headline"${task.name}"
+  p"""
+    $default {
+      $title {${task.name} (${if (task.isOpen) "Open" else "Done"})}
 
-  if (task.isOpen)
-    p"Is Open"
-  else
-    p"Done"
+      $p ${Link > Application.index()} {Back to main page}
+
+      $p ${task.details}
+    }
+   """
 }
