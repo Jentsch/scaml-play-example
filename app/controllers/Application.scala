@@ -14,7 +14,7 @@ object Application extends Controller {
     Writeable[Builder]({ (doc: Builder) => HtmlGenrator(doc).toString().getBytes }, Some("text/html"))
 
   def index = Action {
-    Ok(Index)
+    Ok(new Index)
   }
 
   def add = Action {

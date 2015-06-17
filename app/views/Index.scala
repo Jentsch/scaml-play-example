@@ -4,7 +4,7 @@ import assets.Task
 import controllers.routes.Application
 import org.scaml.attributes._
 
-object Index extends Template {
+class Index extends Template {
 
   p"""
     $default {
