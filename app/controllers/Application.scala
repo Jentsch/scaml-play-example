@@ -2,12 +2,16 @@ package controllers
 
 import assets.{Duration, Task}
 import org.scaml.{HTML => HtmlGenrator}
+import play.api.http.Writeable
+import play.api.mvc._
 import views._
+
+import scala.util.Try
 
 object Application extends Controller {
 
   implicit val ScamlWriteable =
-    Writeable[Builder]({ (doc: Builder) => HtmlGenrator(doc).toString().getBytes }, Some("text/html"))
+    Writeable({ (doc: Template) => HtmlGenrator(doc.document).toString().getBytes }, Some("text/html"))
 
   def index = Action {
     Ok(new Index)

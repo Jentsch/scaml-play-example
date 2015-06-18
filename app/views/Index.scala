@@ -2,21 +2,21 @@ package views
 
 import assets.Task
 import controllers.routes.Application
+import org.scaml._
 import org.scaml.attributes._
+import views.Template._
 
-class Index extends Template {
+class Index extends Template(
 
-  p"""
-    $default {
-      $title Mainpage
+  ml"""
+    $title Mainpage
 
-      $p{Create a new ${Link > Application.add()} task}
+    $p{Create a new ${Link > Application.add()} task}
 
-      $section{Unresolved Tasks}
-    }
+    $section{Unresolved Tasks}
+
+    ${Task.unresolved.map { task =>
+      ml"$p {${Link > Application.show(task.id).url}{${task.name}} (${task.duration})}"
+    }}
   """
-
-  Task.unresolved.foreach { task =>
-    p"${Link > Application.show(task.id).url}{${task.name}} (${task.duration})"
-  }
-}
+)
