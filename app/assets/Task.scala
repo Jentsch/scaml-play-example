@@ -2,10 +2,11 @@ package assets
 
 import assets.Duration._
 
-import scala.concurrent.stm._
-
 case class Task(name: String, duration: Duration, details: String = "", priority: Int = 0, isResolved: Boolean = false, id: Int = 0) {
   def isOpen = !isResolved
+
+  def easierTask: Task =
+    Task.unresolved.filter(_.duration < this.duration).max
 }
 
 /** All tasks ordered by priority */

@@ -1,12 +1,8 @@
 package controllers
 
 import assets.{Duration, Task}
-import org.scaml.{Builder, HTML => HtmlGenrator}
-import play.api.http.Writeable
-import play.api.mvc._
+import org.scaml.{HTML => HtmlGenrator}
 import views._
-
-import scala.util.Try
 
 object Application extends Controller {
 
@@ -46,20 +42,14 @@ object Application extends Controller {
     }
   }
 
-  def update(id: Int) = Action {
-    NotImplemented
-  }
-
-  def remove(id: Int) = Action {
-    NotImplemented
-  }
-
-  def search = Action {
-    NotImplemented
-  }
-
-  def resolved() = Action {
-    Ok(new TaskList("Resolved tasks", Task.filter(_.isResolved).to[List]))
+  def toggle(id: Int) = Action {req =>
+    Task.get(id) match {
+      case Some(task) =>
+        Task += task.copy(isResolved = !task.isResolved)
+        Ok(new Show(task))
+      case None =>
+        NotFound("No task with ID " + id)
+    }
   }
 
 }

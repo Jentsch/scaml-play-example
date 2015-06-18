@@ -8,10 +8,7 @@ GET     /                           controllers.Application.index
 GET 	/add						controllers.Application.add
 POST    /add                        controllers.Application.create
 GET		/*id						controllers.Application.show(id: Int)
-POST	/*id						controllers.Application.update(id: Int)
-POST	/*id/remove					controllers.Application.remove(id: Int)
-
-GET		/search						controllers.Application.search
+POST    /*id/toggle                 controllers.Application.toggle(id: Int)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
