@@ -2,8 +2,6 @@ FROM java:openjdk-7
 
 MAINTAINER Jentsch <d.jentsch@fu-berlin.de>
 
-WORKDIR /opt/
-
 RUN git clone https://jentsch@github.com/Jentsch/scaml-play-example.git /opt/scaml-play-example/
 
 WORKDIR /opt/scaml-play-example/
