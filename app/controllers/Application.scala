@@ -1,7 +1,7 @@
 package controllers
 
 import assets.{Duration, Task}
-import org.scaml.{HTML => HtmlGenrator}
+import org.scaml.{HTML => HtmlGenrator, Node}
 import play.api.http.Writeable
 import play.api.mvc._
 import views._
@@ -11,14 +11,18 @@ import scala.util.Try
 object Application extends Controller {
 
   implicit val ScamlWriteable =
-    Writeable({ (doc: Template) => HtmlGenrator(doc.document).toString().getBytes }, Some("text/html"))
+    Writeable({ (doc: Node) => HtmlGenrator(doc).toString().getBytes }, Some("text/html"))
 
-  def index = Action {
-    Ok(new Index)
+  def index() = Action {
+    Ok(Index.render)
   }
 
-  def add = Action {
-    Ok(Add)
+  def add() = Action {
+    Ok(Add.render)
+  }
+
+  def done() = Action {
+    Ok(Done.render)
   }
 
   def create = Action { req =>
@@ -34,13 +38,13 @@ object Application extends Controller {
         val id = Task += task
         Redirect(routes.Application.show(id))
       case None =>
-        Ok(Add)
+        Ok(Add.render)
     }
   }
 
   def show(id: Int) = Action {
     Task.get(id).map { task =>
-      Ok(new Show(task))
+      Ok(Show.render(task))
     }.getOrElse {
       NotFound("No with ID " + id)
     }
@@ -49,8 +53,8 @@ object Application extends Controller {
   def toggle(id: Int) = Action {req =>
     Task.get(id) match {
       case Some(task) =>
-        Task += task.copy(isResolved = !task.isResolved)
-        Ok(new Show(task))
+        Task += task.copy(done = !task.done)
+        Ok(Show.render(task))
       case None =>
         NotFound("No task with ID " + id)
     }

@@ -4,18 +4,16 @@ import assets.Duration._
 
 import scala.concurrent.stm.Ref
 
-case class Task(name: String, duration: Duration, details: String = "", priority: Int = 0, isResolved: Boolean = false, id: Int = 0) {
-  def isOpen = !isResolved
-
-  def easierTask: Task =
-    Task.unresolved.filter(_.duration < this.duration).max
+case class Task(name: String, duration: Duration, details: String = "", priority: Priority = Priority(0), done: Boolean = false, id: Int = 0) {
+  def open = !done
 }
 
 /** All tasks ordered by priority */
 object Task extends collection.Iterable[Task] {
-  def unresolved = filter(_.isOpen)
+  def open = filter(_.open)
+  def done = filter(_.done)
 
-  implicit val Ordering: Ordering[Task] = implicitly[Ordering[Int]].on(_.priority)
+  implicit val Ordering: Ordering[Task] = scala.Ordering.by(_.priority)
 
   private[Task] val store = Ref(Map.empty[Int, Task]).single
 
@@ -41,9 +39,11 @@ object Task extends collection.Iterable[Task] {
   createTestData()
 
   private def createTestData(): Unit = {
-    this += Task("Buy milk", minutes(45), priority = 10)
-    this += Task("Repair the bike", minutes(120), priority = 5, isResolved = true)
-    this += Task("Rule the world", minutes(20), "If some time left", 3)
+    this += Task("Buy milk", minutes(45), priority = Priority(9))
+    this += Task("Repair the bike", minutes(120), priority = Priority(5), done = true)
+    this += Task("Rule the world", minutes(20), "If some time left", Priority(3))
+    this += Task("Think about 42", minutes(120), priority = Priority(9))
+    this += Task("Be borne", minutes(9 * 30 * 24 * 60), done = true)
   }
 
 }

@@ -26,6 +26,9 @@ case class Duration(seconds: Int) extends AnyVal with Ordered[Duration] {
     } else {
       f"$minutes:${seconds % 60}%02d min"
     }
+
+  def +(that: Duration) =
+    new Duration(this.seconds + that.seconds)
 }
 
 object Duration {

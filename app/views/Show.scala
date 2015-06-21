@@ -6,13 +6,15 @@ import org.scaml._
 import org.scaml.attributes.Link
 import views.Template._
 
-class Show(task: Task) extends Template(
+object Show {
 
-  ml"""
-      $title {${task.name} (${if (task.isOpen) "Open" else "Done"})}
+  def render(task: Task) = default( ml"""
+      $title { ${task.name} (${if (task.open) "Open" else "Done"}) }
 
-      $p ${Link > Application.index()} {Back to main page}
+      $p{ Priority ${task.priority} }
+
+      $p ${Link > Application.index()} { Back to main page }
 
       $p ${task.details}
-   """
-)
+   """)
+}

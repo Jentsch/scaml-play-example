@@ -7,6 +7,7 @@ GET     /                           controllers.Application.index
 
 GET 	/add						controllers.Application.add
 POST    /add                        controllers.Application.create
+GET     /done                       controllers.Application.done
 GET		/*id						controllers.Application.show(id: Int)
 POST    /*id/toggle                 controllers.Application.toggle(id: Int)
 
