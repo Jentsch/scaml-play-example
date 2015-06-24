@@ -15,17 +15,10 @@ case class Duration(seconds: Int) extends AnyVal with Ordered[Duration] {
 
   def workWeeks = workDays / 5
 
+  def months = days / 30
+
   def compare(that: Duration) =
     this.seconds compare that.seconds
-
-  def niceString =
-    if (seconds < 60) {
-      seconds.toString + " s"
-    } else if (seconds % 60 == 0) {
-      f"$minutes min"
-    } else {
-      f"$minutes:${seconds % 60}%02d min"
-    }
 
   def +(that: Duration) =
     new Duration(this.seconds + that.seconds)
@@ -41,5 +34,11 @@ object Duration {
     Duration(minutes * 60)
 
   implicit def inline(duration: Duration): Node =
-    duration.niceString
+    if (duration.seconds < 60) {
+      duration.seconds.toString + " s"
+    } else if (duration.seconds % 60 == 0) {
+      f"${duration.minutes} min"
+    } else {
+      f"${duration.minutes}:${duration.seconds % 60}%02d min"
+    }
 }
