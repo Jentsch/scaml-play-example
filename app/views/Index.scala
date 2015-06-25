@@ -1,7 +1,7 @@
 package views
 
-import assets.Task
 import controllers.routes.Application
+import models.Task
 import org.scaml._
 import org.scaml.attributes._
 import views.Template._

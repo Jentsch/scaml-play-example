@@ -1,4 +1,4 @@
-package assets
+package models
 
 import org.scaml.Node
 

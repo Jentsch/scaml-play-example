@@ -1,6 +1,6 @@
 package controllers
 
-import assets.{Duration, Task}
+import models.{Duration, Task}
 import org.scaml.{HTML => HtmlGenrator, Node}
 import play.api.http.Writeable
 import play.api.mvc._

@@ -1,6 +1,6 @@
-package assets
+package models
 
-import assets.Duration._
+import models.Duration._
 
 import scala.concurrent.stm.Ref
 
